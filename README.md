@@ -1,2 +1,2 @@
 # stock-price-comparison
-Analysis of stocks using price, market and company information
+Project to retrieve stock, market and company information from  API to analyze, compare and visualize stock prices
