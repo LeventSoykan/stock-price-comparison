@@ -93,9 +93,9 @@ class ETL:
         self.merge(self.get_financial, 'income_statement').to_csv('inc.csv', index=False)
 
 def update_prices():
-    POSTGRES_PASSWORD = 'w8n6Yr3h'
-    LINODE_SERVER = '143.42.193.56'
-    AV_API_KEY = 'VRS4SWEZ6AC9K0Z5'
+    POSTGRES_PASSWORD = '*******'
+    LINODE_SERVER = '********'
+    AV_API_KEY = '*********'
     stocks = {
         'IBM': 1,
         'GOOG': 2,
