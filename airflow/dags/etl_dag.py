@@ -40,7 +40,7 @@ class ETL:
         data = r.json()
 
         df = pd.DataFrame([data])
-        df['stock_id'] = 1
+        df['stock_id'] = stock_id
         df = df.replace('None', np.nan)
         for col in df.columns:
             if col in ['DividendDate', 'ExDividendDate']:
@@ -93,9 +93,9 @@ class ETL:
         self.merge(self.get_financial, 'income_statement').to_csv('inc.csv', index=False)
 
 def update_prices():
-    POSTGRES_PASSWORD = '*******'
-    LINODE_SERVER = '********'
-    AV_API_KEY = '*********'
+    POSTGRES_PASSWORD = '*********'
+    LINODE_SERVER = '*********'
+    AV_API_KEY = '**********'
     stocks = {
         'IBM': 1,
         'GOOG': 2,
@@ -108,7 +108,11 @@ def update_prices():
     # Create etl object
     etl = ETL(stocks, AV_API_KEY)
     etl.merge(etl.get_price).to_sql('stock_prices', engine, schema='public', index=False, if_exists='replace')
-
+    time.sleep(65)
+    # Create etl object
+    sp500 = ETL({'VOO':0}, AV_API_KEY)
+    sp500.merge(sp500.get_price).to_sql('index_prices', engine, schema='public', index=False, if_exists='replace')
+        
 etl_dag = DAG(
     'etl_dag',
     start_date=datetime(2023, 5, 10),
